@@ -6,7 +6,7 @@ import java.util.List;
 
 import be.pxl.ja.streamingservice.exception.InvalidDateException;
 
-public class Profile {
+public class Profile implements Comparable<Profile> {
     private String name;
     private LocalDate dateOfBirth;
     private String avatar;
@@ -77,4 +77,14 @@ public class Profile {
             myList.add(content);
         }
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+	@Override
+	public int compareTo(Profile o) {
+		return getName().compareTo(o.getName());
+	}
 }

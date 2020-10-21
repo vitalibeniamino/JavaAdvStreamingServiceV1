@@ -1,6 +1,7 @@
 package be.pxl.ja.streamingservice.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import be.pxl.ja.streamingservice.exception.*;
@@ -21,7 +22,7 @@ public class Account {
         this.email = email;
         setPassword(password);
 
-        profiles.add(new Profile("Profile1"));
+        addProfile(new Profile("Profile1"));
         streamingPlan = StreamingPlan.BASIC;
     }
 
@@ -33,6 +34,7 @@ public class Account {
         if (getNumberOfProfiles() >= streamingPlan.getNumberOfScreens()) {
             throw new TooManyProfilesException();
         }
+        profiles.add(profile);
     }
     
     public String getEmail() {
@@ -40,7 +42,7 @@ public class Account {
     }
 
     public boolean verifyPassword(String password) {
-
+        return this.password.equals(password);
     }
     
     public void setPaymentInfo(PaymentInfo paymentInfo) {
@@ -62,6 +64,7 @@ public class Account {
     }
 
     public List<Profile> getProfiles() {
+        profiles.sort(Comparator.naturalOrder());
         return profiles;
     }
 }
